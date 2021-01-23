@@ -12,7 +12,7 @@
  - uses OpenWeatherMap One Call API
  - 4 icons per display page (instead of originally 3)
  - houry weather forecast for 12 hours
- - daily weather forecast for one week
+ - daily weather forecast for one week with min and max temperatures
  - Sun time, humidity, pressure, wind speed and direction
  
  Usable display: SSD1306 0.96 inch OLED or SH1106 1.3 inch OLED (set the one you have in the code).
