@@ -260,18 +260,20 @@ String OpenWeatherMapOneCall::getMeteoconIcon(uint16_t weather_code, uint8_t is_
   // }
   // // 02n
   // if (icon == "02n") 	{
-     return "4";
+    //  return "4";
+    return "I";
   // }
 
   case 3:
   // scattered clouds
+    return "N";  
   // 03d
   // if (icon == "03d") 	{
-    if(is_day == 1) return "N"; else
+    // if(is_day == 1) return "N"; else
   // }
   // // 03n
   // if (icon == "03n") 	{
-     return "5";
+    //  return "5";
   // }
 
   // case ?:
@@ -289,13 +291,14 @@ String OpenWeatherMapOneCall::getMeteoconIcon(uint16_t weather_code, uint8_t is_
   case 81:
   case 82:
   // shower rain
+    return "R";  
   // 09d
   // if (icon == "09d") 	{
-    if(is_day == 1) return "R"; else
+    // if(is_day == 1) return "R"; else
   // }
   // // 09n
   // if (icon == "09n") 	{
-     return "8";
+    //  return "8";
   // }
 
   case 51:  
@@ -309,26 +312,28 @@ String OpenWeatherMapOneCall::getMeteoconIcon(uint16_t weather_code, uint8_t is_
   case 66:  
   case 67:  
   // rain
+    return "Q";
   // 10d
   // if (icon == "10d") 	{
-    if(is_day == 1) return "Q"; else
+    // if(is_day == 1) return "Q"; else
   // }
   // // 10n
   // if (icon == "10n") 	{
-     return "7";
+    //  return "7";
   // }
 
   case 95:
   case 96:
   case 99:
   // thunderstorm
+    return "P";
   // 11d
   // if (icon == "11d") 	{
-    if(is_day == 1) return "P"; else
+    // if(is_day == 1) return "P"; else
   // }
   // // 11n
   // if (icon == "11n") 	{
-     return "6";
+    //  return "6";
   // }
 
   case 71:
@@ -338,13 +343,14 @@ String OpenWeatherMapOneCall::getMeteoconIcon(uint16_t weather_code, uint8_t is_
   case 85:
   case 86:
   // snow
+    return "W";
   // 13d
   // if (icon == "13d") 	{
-    if(is_day == 1) return "W"; else
+    // if(is_day == 1) return "W"; else
   // }
   // // 13n
   // if (icon == "13n") 	{
-     return "#";
+    //  return "#";
   // }
 
   case 45:
@@ -352,12 +358,13 @@ String OpenWeatherMapOneCall::getMeteoconIcon(uint16_t weather_code, uint8_t is_
   // mist
   // 50d
   // if (icon == "50d") 	{
-    if(is_day == 1) return "M"; else
+    if(is_day == 1) return "J"; else
   // }
   // // 50n
   // if (icon == "50n") 	{
-     return "M";
+     return "K";
   // }
+  // return "M";
 
   default:
   // Nothing matched: N/A
