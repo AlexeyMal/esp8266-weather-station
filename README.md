@@ -1,5 +1,5 @@
 # esp8266-weather-station
- esp8266 weather station using free Open-Meteo API (instead of discontinued OpenWeatherMapOneCall API 2.5)
+ esp8266 weather station using Open-Meteo API
  
  ![alt text](https://github.com/AlexeyMal/esp8266-weather-station/blob/main/Demo.jpg)
  
