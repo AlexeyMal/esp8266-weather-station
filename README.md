@@ -3,12 +3,14 @@
  
  ![alt text](https://github.com/AlexeyMal/esp8266-weather-station/blob/main/Demo.jpg)
  
- Can be programmed to ESP using Arduino IDE.
+ Can be programmed to ESP8266 using Arduino IDE.
  
- Requires this library:
+ Based on
  https://github.com/ThingPulse/esp8266-weather-station
- Here you can also find detailed instructions on building your weather station.
- You have to install/copy this library in the Arduino IDE.
+ Here you can find detailed instructions on building your weather station hardware if you need.
+ The disadvantage of the ThingPulse code is that it uses OpenWeatherMap APIs that are limited and require user registration.
+ Up to now I have been using OpenWeatherMap OneCall API 2.5 but they have discontinued serving it on 17 Sept 2024, suggesting to change to their paid API 3.0.
+ As OpenWeatherMap require a (payed) subscription for API 3.0 with a credit card I have decided to change the provider and just reprogrammed my weather station to use a new, free and flexible open-meteo API.
  
  Features you get with my code: 
  - uses Open-Meteo API (see https://open-meteo.com/en/docs)
