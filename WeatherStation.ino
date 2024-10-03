@@ -140,14 +140,14 @@ OpenWeatherMapForecastData forecasts[MAX_FORECASTS];
 OpenWeatherMapForecast forecastClient;
 */
 OpenWeatherMapOneCallData openWeatherMapOneCallData; //AMA use OneCall API
-//OpenWeatherMapOneCall oneCallClient; //AMA Supposing a bug in the OneCallAPI: statically declared , this object will update the weather data only once :(
+OpenWeatherMapOneCall oneCallClient; //AMA 
 
 /*#define TZ_MN           ((TZ)*60)
 #define TZ_SEC          ((TZ)*3600)
 #define DST_SEC         ((DST_MN)*60)*/
 //time_t now;
 
-const int UPDATE_INTERVAL_SECS = 10 * 60; //10 min // Update every 15 minutes
+const int UPDATE_INTERVAL_SECS = 15 * 60; //15 min // open-meteo updates data every 15 minutes, at: :00, :15, :30, :45
 bool readyForWeatherUpdate = false; // flag changed in the ticker function every UPDATE_INTERVAL_SECS
 long timeSinceLastWUpdate = 0;
 //String lastUpdate = "--";
@@ -347,15 +347,15 @@ void updateData(OLEDDisplay *display) {
   forecastClient.updateForecastsById(forecasts, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION_ID, MAX_FORECASTS);
 */
 //oneCall
-/*  oneCallClient.setMetric(IS_METRIC);
+  oneCallClient.setMetric(IS_METRIC);
   oneCallClient.setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
-  oneCallClient.update(&openWeatherMapOneCallData, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATTION_LAT, OPEN_WEATHER_MAP_LOCATTION_LON);*/
-  OpenWeatherMapOneCall *oneCallClient = new OpenWeatherMapOneCall();
+  oneCallClient.update(&openWeatherMapOneCallData, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATTION_LAT, OPEN_WEATHER_MAP_LOCATTION_LON);
+  /*OpenWeatherMapOneCall *oneCallClient = new OpenWeatherMapOneCall();
   oneCallClient->setMetric(IS_METRIC);
   oneCallClient->setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
   oneCallClient->update(&openWeatherMapOneCallData, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATTION_LAT, OPEN_WEATHER_MAP_LOCATTION_LON);
   delete oneCallClient;
-  oneCallClient = nullptr;
+  oneCallClient = nullptr;*/
   
   readyForWeatherUpdate = false;
   ///drawProgress(display, 100, "Done");
