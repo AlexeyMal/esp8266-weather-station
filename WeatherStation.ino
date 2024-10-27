@@ -185,8 +185,11 @@ void setReadyForWeatherUpdate();
 //int numberOfFrames = 6;
 //FrameCallback frames[] = { drawCurrentWeather, drawHourly, drawHourly2, drawHourly3, drawForecast, drawForecast2, drawCurrentDetails }; //AMA
 //int numberOfFrames = 7;
-FrameCallback frames[] = { drawCurrentWeather, drawHourly, drawHourly2, drawCurrentWeather, drawForecast, drawForecast2 }; //AMA
-int numberOfFrames = 6;
+//FrameCallback frames[] = { drawCurrentWeather, drawHourly, drawHourly2, drawCurrentWeather, drawForecast, drawForecast2 }; //AMA
+//int numberOfFrames = 6;
+
+FrameCallback frames[] = { drawCurrentWeather, drawCurrentDetails, drawHourly, drawHourly2, drawCurrentWeather, drawForecast, drawForecast2 }; //AMA
+int numberOfFrames = 7;
 
 //OverlayCallback overlays[] = { drawHeaderOverlay };
 //int numberOfOverlays = 1;
