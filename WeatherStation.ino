@@ -496,6 +496,10 @@ void drawForecastDetails(OLEDDisplay *display, int x, int y, int dayIndex) {
 }
 
 void drawHourlyDetails(OLEDDisplay *display, int x, int y, int hourIndex) {
+  /*******************************************/
+// Hourly Forecast Details
+/*******************************************/
+void drawHourlyDetails(OLEDDisplay *display, int x, int y, int hourIndex) {
   time_t observationTimestamp = openWeatherMapOneCallData.hourly[hourIndex].dt; //forecasts[dayIndex].observationTime;
   struct tm* timeInfo;
   timeInfo = localtime(&observationTimestamp);
@@ -514,10 +518,13 @@ void drawHourlyDetails(OLEDDisplay *display, int x, int y, int hourIndex) {
   if (hourIndex == 0) display->drawHorizontalLine(x+2, y+12, 29); //line under the current hour
 
   display->setFont(Meteocons_Plain_21);
-  display->drawString(x + 16, y + 17, openWeatherMapOneCallData.hourly[hourIndex].weatherIconMeteoCon); //y+14
+  display->drawString(x + 16, y + 16, openWeatherMapOneCallData.hourly[hourIndex].weatherIconMeteoCon); //y+14
   String temp = String(openWeatherMapOneCallData.hourly[hourIndex].temp, 0) + "°"; //+ (IS_METRIC ? "°C" : "°F");
+  String rain_prob = String(openWeatherMapOneCallData.hourly[hourIndex].rain_prob)+"%"; // rain_probability_percentage
   display->setFont(ArialMT_Plain_10);
-  display->drawString(x + 16, y + 40, temp); //y+36
+  display->drawString(x + 16, y + 34, rain_prob);
+  display->drawString(x + 16, y + 45, temp); //y+36
+  
   display->setTextAlignment(TEXT_ALIGN_LEFT);
 }
 
