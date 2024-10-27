@@ -30,6 +30,7 @@
   - Your WiFi SSID and password - WIFI_SSID and WIFI_PWD
   - Your Latitude and Longitude - OPEN_WEATHER_MAP_LOCATTION_LAT and OPEN_WEATHER_MAP_LOCATTION_LON
   - Your timezone in line setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 0);
+  - Your timezone in function OpenWeatherMapOneCall::buildPath() like timezone=Europe%2FBerlin
   - Your display - #define SSD1306 or #define SH1106
   - Your SDA_PIN and SDC_PIN for the display (and optional BME280 sensor)
  

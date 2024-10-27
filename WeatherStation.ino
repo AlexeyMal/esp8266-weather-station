@@ -466,6 +466,7 @@ void drawHourly2(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int
 void drawForecastDetails(OLEDDisplay *display, int x, int y, int dayIndex) {
   time_t observationTimestamp = openWeatherMapOneCallData.daily[dayIndex].dt; //forecasts[dayIndex].observationTime;
   struct tm* timeInfo;
+  observationTimestamp += 3600; // 1 hour in s to avoid the wrong days by localtime() when the time is changed from summer time to winter time
   timeInfo = localtime(&observationTimestamp);
   display->setTextAlignment(TEXT_ALIGN_CENTER);
   display->setFont(ArialMT_Plain_10);
