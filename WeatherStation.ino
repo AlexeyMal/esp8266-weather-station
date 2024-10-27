@@ -463,11 +463,14 @@ void drawHourly2(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int
   drawHourlyDetails(display, x + 96, y, 11); 
 }*/
 
+/*******************************************/
+// Daily Forecast Details
+/*******************************************/
 void drawForecastDetails(OLEDDisplay *display, int x, int y, int dayIndex) {
   time_t observationTimestamp = openWeatherMapOneCallData.daily[dayIndex].dt; //forecasts[dayIndex].observationTime;
   struct tm* timeInfo;
-  observationTimestamp += 3600; // 1 hour in s to avoid the wrong days by localtime() when the time is changed from summer time to winter time
   timeInfo = localtime(&observationTimestamp);
+  //Serial.print("dayIndex = ");Serial.println(dayIndex);
   display->setTextAlignment(TEXT_ALIGN_CENTER);
   display->setFont(ArialMT_Plain_10);
   /*if (dayIndex == 0) {
@@ -475,6 +478,7 @@ void drawForecastDetails(OLEDDisplay *display, int x, int y, int dayIndex) {
     display->setColor(BLACK);
   }*/
   display->drawString(x + 16, y, WDAY_NAMES[timeInfo->tm_wday]);
+  //Serial.print("WDAY_NAMES = ");Serial.println(WDAY_NAMES[timeInfo->tm_wday]);
   display->setColor(WHITE);
   if (dayIndex == 0) display->drawHorizontalLine(x+2, y+12, 29); //line under the current day
 
@@ -484,14 +488,17 @@ void drawForecastDetails(OLEDDisplay *display, int x, int y, int dayIndex) {
   }
   
   display->setFont(Meteocons_Plain_21);
-  display->drawString(x + 16, y + 17, openWeatherMapOneCallData.daily[dayIndex].weatherIconMeteoCon); //y+14
+  display->drawString(x + 16, y + 15, openWeatherMapOneCallData.daily[dayIndex].weatherIconMeteoCon); //y+14
   String tempMin = String(openWeatherMapOneCallData.daily[dayIndex].tempMin, 0)+"°";// + (IS_METRIC ? "°C" : "°F");
   String tempMax = String(openWeatherMapOneCallData.daily[dayIndex].tempMax, 0)+"°";// + (IS_METRIC ? "°C" : "°F");
+  String rain_prob = String(openWeatherMapOneCallData.daily[dayIndex].rain_prob)+"%"; // rain_probability_percentage
   display->setFont(ArialMT_Plain_10);
   //String temps = tempMax+"/"+tempMin+"°";
   //display->drawString(x + 16, y + 38, temps); //y+36
-  display->drawString(x + 16, y + 40, tempMax);
-  display->drawString(x + 16, y + 54, tempMin);
+  display->drawString(x + 16, y + 34, rain_prob);
+  display->drawString(x + 16, y + 44, tempMin);
+  display->drawString(x + 16, y + 54, tempMax);
+
   display->setTextAlignment(TEXT_ALIGN_LEFT);
 }
 
