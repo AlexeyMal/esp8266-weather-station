@@ -15,8 +15,11 @@
  Features you get with my code: 
  - uses Open-Meteo API (see https://open-meteo.com/en/docs)
  - 4 icons per display page (instead of originally 3)
- - houry weather forecast for 8 hours
- - daily weather forecast for one week with min and max temperatures
+ - hourly weather forecast for 8 hours, added a rain probability for every hour
+ - daily weather forecast for 8 days with min, max temperatures and rain probability percentage
+ - daily expected maximum wind force, gusts and direction in human readable form
+ - daily UV index and mm of rain
+ - daily sunrise and sunset hour
  - BME280 sensor for indoor temperature, humidity, pressure
  
  Usable display: SSD1306 0.96 inch OLED or SH1106 1.3 inch OLED.
