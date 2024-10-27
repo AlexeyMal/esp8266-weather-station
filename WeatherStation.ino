@@ -535,6 +535,9 @@ void drawHourlyDetails(OLEDDisplay *display, int x, int y, int hourIndex) {
   display->setTextAlignment(TEXT_ALIGN_LEFT);
 }
 
+/**********************************/
+// Show daily[0] Details (current)
+/**********************************/
 void drawCurrentDetails(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
   time_t timestamp;
   struct tm* timeInfo;
@@ -547,32 +550,36 @@ void drawCurrentDetails(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t
   display->setFont(ArialMT_Plain_10);
   display->setTextAlignment(TEXT_ALIGN_LEFT);
   
-  timestamp = openWeatherMapOneCallData.current.dt;
+  timestamp = openWeatherMapOneCallData.daily[0].dt;
   timeInfo = localtime(&timestamp);
   sprintf_P(buff, PSTR("%02d:%02d %02d.%02d.%04d"), timeInfo->tm_hour, timeInfo->tm_min, timeInfo->tm_mday, timeInfo->tm_mon+1, timeInfo->tm_year + 1900);
   display->drawString( x, y + 0, "Update: " + String(buff));
   
-  timestamp = openWeatherMapOneCallData.current.sunrise;
+  timestamp = openWeatherMapOneCallData.daily[0].sunrise;
   timeInfo = localtime(&timestamp);
   sprintf_P(buff, PSTR("%02d:%02d"), timeInfo->tm_hour, timeInfo->tm_min);
-  //display->drawString( x, y + 10, "Sunrise: " + String(buff));
- 
-  timestamp = openWeatherMapOneCallData.current.sunset;
+  temp3 = String(openWeatherMapOneCallData.daily[0].uvi, 1);
+  //Serial.print(temp3);Serial.println(openWeatherMapOneCallData.daily[0].uvi);
+  display->drawString( x, y + 14, "Sunrise: " + String(buff) + "   " + "UVI: " + temp3);
+   
+  timestamp = openWeatherMapOneCallData.daily[0].sunset;
   timeInfo = localtime(&timestamp);
+  temp3 = String(openWeatherMapOneCallData.daily[0].rain, 0);
   sprintf_P(buff2, PSTR("%02d:%02d"), timeInfo->tm_hour, timeInfo->tm_min);
-  //display->drawString( x, y + 20, "Sunset:  " + String(buff));
-  display->drawString( x, y + 11, "Sun:       " + String(buff) + " - " + String(buff2));
-  
-  temp = String(openWeatherMapOneCallData.current.humidity);
-  temp2 = String(openWeatherMapOneCallData.current.pressure);
-  display->drawString( x, y + 22, "RH, AP:  " + temp + " %  " + temp2 + " hPa");
+  display->drawString( x, y + 26, "Sunset: " + String(buff2) + "  " + "Rain: " + temp3);
+  //display->drawString( x, y + 11, "Sun:       " + String(buff) + " - " + String(buff2));
+    
+  //temp = String(openWeatherMapOneCallData.current.humidity);
+  //temp2 = String(openWeatherMapOneCallData.current.pressure);
+  //display->drawString( x, y + 22, "RH, AP:  " + temp + " %  " + temp2 + " hPa");
  
   //temp = String(openWeatherMapOneCallData.current.windSpeed * 3.6, 1); // *3600/1000 m/s -> km/h
-  temp = String(openWeatherMapOneCallData.current.windSpeed * 3.6, 0); // *3600/1000 m/s -> km/h
+  temp = String(openWeatherMapOneCallData.daily[0].windSpeed,1); // *3600/1000 m/s -> km/h
   //temp2 = String(openWeatherMapOneCallData.current.windDeg, 0);
-  temp2 = WIND_NAMES[(int)roundf((float)openWeatherMapOneCallData.current.windDeg / 22.5)]; // Rounds the wind direction out into 17 sectors. Sectors 1 and 17 are both N.
+  temp2 = WIND_NAMES[(int)roundf((float)openWeatherMapOneCallData.daily[0].windDeg / 22.5)]; // Rounds the wind direction out into 17 sectors. Sectors 1 and 17 are both N.
+  temp3 = String(openWeatherMapOneCallData.daily[0].windGusts,1); // *3600/1000 m/s -> km/h
   //display->drawString( x, y + 30, "Wind:     " + temp + "km/h  " + temp2 + "°  " + temp3);
-  display->drawString( x, y + 33, "Wind:     " + temp + " km/h  " + temp2);
+  display->drawString( x, y + 38, "Wind: " + temp + "kn " + temp2 + " " + temp3 + " kn");
   //temp3 = String(openWeatherMapOneCallData.current.visibility * 0.001, 0); //[m]->km
   //display->drawString( x, y + 33, "W, S:  " + temp + " km/h " + temp2 + " " + temp3 + " km");
 
@@ -580,12 +587,12 @@ void drawCurrentDetails(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t
 //  display->drawString( x+1, y + 40, "Visibility: " + temp + " km");
 
   //temp = String(openWeatherMapOneCallData.current.feels_like , 0);
-  temp = String(openWeatherMapOneCallData.current.temp, 1);
-  temp2 = String(openWeatherMapOneCallData.current.dew_point , 0);
+  temp = String(openWeatherMapOneCallData.daily[0].tempMin, 1);
+  temp2 = String(openWeatherMapOneCallData.daily[0].tempMax , 1);
   //display->drawString( x, y + 44, "Feels:    " + temp + "°  Dew point: " + temp2 + "°");
-  display->drawString( x, y + 44, "Temp:    " + temp + "°   Dew:  " + temp2 + "°");
-  
-  drawHeaderOverlay1(display, state, x, y); //footer string
+  display->drawString( x, y + 50, "T.Min: " + temp + "°  T.Max: " + temp2 + "°");
+    
+  //drawHeaderOverlay1(display, state, x, y); //footer string
 }
 
 /*void drawHeaderOverlay(OLEDDisplay *display, OLEDDisplayUiState* state) {
