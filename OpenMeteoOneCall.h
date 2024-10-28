@@ -72,6 +72,8 @@ typedef struct OpenWeatherMapOneCallHourlyData {
   uint32_t dt;
   // "temp": 290.56
   float temp;
+  // "precipitation_probability": 0-100
+  uint8_t rain_prob;
   // "feels_like": 290.56
   float feels_like;
   // "pressure": 290.56
@@ -135,6 +137,8 @@ typedef struct OpenWeatherMapOneCallDailyData {
   // "wind_speed": 1.5
   float windSpeed;
   // "wind_deg": 0
+  float windGusts;
+  // "wind_gusts": 0
   float windDeg;
   // "id": 800
   uint16_t weatherId;
@@ -149,11 +153,13 @@ typedef struct OpenWeatherMapOneCallDailyData {
   uint8_t clouds;
   // "rain": 5.97
   float rain;
+  // "precipitation_probability_max": 0-100
+  uint8_t rain_prob;
   // "snow":	0.15
   float snow;
   // "uvi": 4.5
   float uvi;
-
+  
 } OpenWeatherMapOneCallDailyData;
 
 typedef struct OpenWeatherMapOneCallData {
@@ -214,4 +220,3 @@ class OpenWeatherMapOneCall: public JsonListener {
     virtual void startArray();
     virtual void startObject();
 };
-

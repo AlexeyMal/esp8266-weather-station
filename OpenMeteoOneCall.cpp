@@ -43,7 +43,8 @@ String OpenWeatherMapOneCall::buildPath(String appId, float lat, float lon)
 //  String units = metric ? "metric" : "imperial";
 //  return "/data/2.5/onecall?appid=" + appId + "&lat=" + lat + "&lon=" + lon + "&units=" + units + "&lang=" + language;
 
-  return "/v1/forecast?latitude=" + String(lat,4) + "&longitude=" + String(lon,4) + "&current=temperature_2m,relative_humidity_2m,is_day,weather_code&hourly=temperature_2m,is_day,weather_code&forecast_hours=8&daily=weather_code,temperature_2m_max,temperature_2m_min&timeformat=unixtime&timezone=Europe%2FBerlin&forecast_days=8";
+  return "/v1/forecast?latitude=" + String(lat,4) + "&longitude=" + String(lon,4) + "&current=temperature_2m,relative_humidity_2m,is_day,weather_code&hourly=temperature_2m,precipitation_probability,is_day,weather_code&forecast_hours=8&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,rain_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&wind_speed_unit=kn&timeformat=unixtime&timezone=Europe%2FBerlin&forecast_days=8";
+  //return "/v1/forecast?latitude=" + String(lat,4) + "&longitude=" + String(lon,4) + "&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,rain_sum,showers_sum,wind_speed_10m_max,wind_direction_10m_dominant&timeformat=unixtime&timezone=Europe%2FBerlin"
   //test:  https://api.open-meteo.com/v1/forecast?latitude=47.6463&longitude=7.7821&current=temperature_2m,relative_humidity_2m,is_day,weather_code&hourly=temperature_2m,is_day,weather_code&forecast_hours=8&daily=weather_code,temperature_2m_max,temperature_2m_min&timeformat=unixtime&timezone=Europe%2FBerlin&forecast_days=8
   //docs: https://open-meteo.com/en/docs
   //response example: {"latitude":47.64,"longitude":7.7799993,"generationtime_ms":0.1430511474609375,"utc_offset_seconds":7200,"timezone":"Europe/Berlin","timezone_abbreviation":"CEST","elevation":352.0,"current_units":{"time":"unixtime","interval":"seconds","temperature_2m":"°C","relative_humidity_2m":"%","weather_code":"wmo code"},"current":{"time":1727528400,"interval":900,"temperature_2m":11.9,"relative_humidity_2m":81,"weather_code":3},"hourly_units":{"time":"unixtime","temperature_2m":"°C","weather_code":"wmo code"},"hourly":{"time":[1727528400,1727532000,1727535600,1727539200,1727542800,1727546400,1727550000,1727553600],"temperature_2m":[11.9,11.7,11.8,11.4,10.8,10.0,9.3,7.8],"weather_code":[3,61,80,3,3,3,2,2]},"daily_units":{"time":"unixtime","weather_code":"wmo code","temperature_2m_max":"°C","temperature_2m_min":"°C"},"daily":{"time":[1727474400,1727560800,1727647200,1727733600,1727820000,1727906400,1727992800,1728079200],"weather_code":[80,3,61,61,80,80,61,45],"temperature_2m_max":[12.6,14.3,16.2,13.8,12.2,10.8,10.3,14.1],"temperature_2m_min":[6.8,3.6,6.6,12.0,9.2,8.6,8.6,7.2]}}  
@@ -168,6 +169,9 @@ void OpenWeatherMapOneCall::value(String value)
       this->data->hourly[hourlyItemCounter].weatherId = value.toInt();
       this->data->hourly[hourlyItemCounter].weatherIconMeteoCon = getMeteoconIcon(this->data->hourly[hourlyItemCounter].weatherId, this->data->hourly[hourlyItemCounter].is_day);
     }
+    if (currentKey == "precipitation_probability") {
+      this->data->hourly[hourlyItemCounter].rain_prob = value.toInt();
+    }
     hourlyItemCounter++;
   }
 
@@ -186,6 +190,31 @@ void OpenWeatherMapOneCall::value(String value)
       this->data->daily[dailyItemCounter].weatherId = value.toInt();
       this->data->daily[dailyItemCounter].weatherIconMeteoCon = getMeteoconIcon(this->data->daily[dailyItemCounter].weatherId, 1u);
     }
+    if (currentKey == "sunrise") {
+      this->data->daily[dailyItemCounter].sunrise = value.toInt();
+    }
+    if (currentKey == "sunset") {
+      this->data->daily[dailyItemCounter].sunset = value.toInt();
+    }
+    if (currentKey == "wind_speed_10m_max") {
+      this->data->daily[dailyItemCounter].windSpeed = value.toFloat();
+    }
+    if (currentKey == "wind_gusts_10m_max") {
+      this->data->daily[dailyItemCounter].windGusts = value.toFloat();
+    }
+    if (currentKey == "wind_direction_10m_dominant") {
+      this->data->daily[dailyItemCounter].windDeg = value.toFloat();
+    }
+    if (currentKey == "uv_index_max") {
+      this->data->daily[dailyItemCounter].uvi = value.toFloat();
+    }
+    if (currentKey == "rain_sum") {
+      this->data->daily[dailyItemCounter].rain = value.toFloat();
+    }
+    if (currentKey == "precipitation_probability_max") {
+      this->data->daily[dailyItemCounter].rain_prob = value.toInt();
+    }
+    
     dailyItemCounter++;
   }
 }
