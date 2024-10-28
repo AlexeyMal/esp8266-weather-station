@@ -505,8 +505,7 @@ void drawForecastDetails(OLEDDisplay *display, int x, int y, int dayIndex) {
   display->setTextAlignment(TEXT_ALIGN_LEFT);
 }
 
-void drawHourlyDetails(OLEDDisplay *display, int x, int y, int hourIndex) {
-  /*******************************************/
+/*******************************************/
 // Hourly Forecast Details
 /*******************************************/
 void drawHourlyDetails(OLEDDisplay *display, int x, int y, int hourIndex) {
