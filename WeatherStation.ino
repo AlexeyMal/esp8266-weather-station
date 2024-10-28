@@ -552,7 +552,8 @@ void drawCurrentDetails(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t
   display->setFont(ArialMT_Plain_10);
   display->setTextAlignment(TEXT_ALIGN_LEFT);
   
-  timestamp = openWeatherMapOneCallData.daily[0].dt;
+  //timestamp = openWeatherMapOneCallData.daily[0].dt;
+  timestamp = openWeatherMapOneCallData.current.dt;
   timeInfo = localtime(&timestamp);
   sprintf_P(buff, PSTR("%02d:%02d %02d.%02d.%04d"), timeInfo->tm_hour, timeInfo->tm_min, timeInfo->tm_mday, timeInfo->tm_mon+1, timeInfo->tm_year + 1900);
   display->drawString( x, y + 0, "Update: " + String(buff));
@@ -581,7 +582,7 @@ void drawCurrentDetails(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t
   temp2 = WIND_NAMES[(int)roundf((float)openWeatherMapOneCallData.daily[0].windDeg / 22.5)]; // Rounds the wind direction out into 17 sectors. Sectors 1 and 17 are both N.
   temp3 = String(openWeatherMapOneCallData.daily[0].windGusts,1); // *3600/1000 m/s -> km/h
   //display->drawString( x, y + 30, "Wind:     " + temp + "km/h  " + temp2 + "°  " + temp3);
-  display->drawString( x, y + 38, "Wind: " + temp + "kn " + temp2 + " " + temp3 + " kn");
+  display->drawString( x, y + 38, "Wind: " + temp + " kn " + temp2 + " " + temp3 + " kn");
   //temp3 = String(openWeatherMapOneCallData.current.visibility * 0.001, 0); //[m]->km
   //display->drawString( x, y + 33, "W, S:  " + temp + " km/h " + temp2 + " " + temp3 + " km");
 
@@ -592,7 +593,7 @@ void drawCurrentDetails(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t
   temp = String(openWeatherMapOneCallData.daily[0].tempMin, 1);
   temp2 = String(openWeatherMapOneCallData.daily[0].tempMax , 1);
   //display->drawString( x, y + 44, "Feels:    " + temp + "°  Dew point: " + temp2 + "°");
-  display->drawString( x, y + 50, "T.Min: " + temp + "°  T.Max: " + temp2 + "°");
+  display->drawString( x, y + 50, "T.min: " + temp + "°  T.max: " + temp2 + "°");
     
   //drawHeaderOverlay1(display, state, x, y); //footer string
 }
