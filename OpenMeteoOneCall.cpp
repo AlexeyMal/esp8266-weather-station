@@ -402,6 +402,9 @@ String OpenWeatherMapOneCall::getMeteoconIcon(uint16_t weather_code, uint8_t is_
 }
 
 /*
+For Meteocon Icons please see the file "meteocons-font.png" in the repository or this web page:
+https://www.alessioatzeni.com/meteocons/
+
 https://open-meteo.com/en/docs
 WMO Weather interpretation codes (WW)
 
