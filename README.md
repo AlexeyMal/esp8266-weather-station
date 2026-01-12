@@ -36,6 +36,9 @@
   - Your timezone in function OpenWeatherMapOneCall::buildPath() like timezone=Europe%2FBerlin
   - Your display - #define SSD1306 or #define SH1106
   - Your SDA_PIN and SDC_PIN for the display (and optional BME280 sensor)
+
+You might be interested in the updated and extended version of this project:
+https://github.com/AlexeyMal/WeatherStationAndAlarm
  
  Enjoy!
  (2024) Alexey
